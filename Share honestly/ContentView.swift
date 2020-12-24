@@ -31,19 +31,25 @@ struct Home:View {
     @State private var cashierCheck = ""
     
     // Number of persons...
-    @State private var numberPersons = 2
+    @State private var numberPersons = 0
     
     // items array tips...
     @State private var tips = ["0", "5", "10", "15", "20", "25", "30", "35", "40",]
     
-    // selected
+    // selected ++++++
     @State private var selectTips = 0
     
-    // all summa...
+    // all summa ++++++
     @State private var total: Double = 0.0
+    // ostatok +++++++
+    @State private var differ: Double = 0.0
+    @State private var tip: Double = 0.0
+    @State private var difference: Double = 0.0
+    @State private var colorDifference = false
     
     // show alert...
     @State private var showAlert = false
+    
     
     var body: some View {
         VStack {
@@ -93,16 +99,39 @@ struct Home:View {
                         }
                     }
                     Section(header: Text("Total")) {
-                        Text("Total = \(total, specifier: "%.2f")")
-                            .foregroundColor(.orange)
-                            .font(.system(size: 28))
-                            .bold()
-                            .padding()
+                        VStack(alignment: .leading) {
+                            Text("Total = \(total, specifier: "%.2f")")
+                                .foregroundColor(.orange)
+                                .font(.system(size: 28))
+                                .bold()
+                                .padding(.top)
+                                .padding(.horizontal)
+                            Text("Of them")
+                                .foregroundColor(.white)
+                                .padding(.top, 5)
+                                .padding(.horizontal)
+                            Text("Tip = \(tip, specifier: "%.2f")")
+                                .bold()
+                                .foregroundColor(.yellow)
+                                .padding(.horizontal)
+                            Text("Difference = \(difference, specifier: "%.2f")")
+                                .bold()
+                                .foregroundColor(colorDifference ? .red : .yellow)
+                                .padding(.horizontal)
+                                .padding(.bottom, 5)
+                        }
                         Button(action: {
                             if !cashierCheck.isEmpty {
-                                let newCachierCheck = cashierCheck.replacingOccurrences(of: ",", with: ".")
-                                let tmp = (Double(self.tips[selectTips])! / 10.0) * (Double(newCachierCheck)! / 10.0)
-                                self.total = ((Double(newCachierCheck)! + tmp) / Double(numberPersons + 2))
+                                let newCachierCheck = self.cashierCheck.replacingOccurrences(of: ",", with: ".")
+                                tip = ((Double(tips[selectTips]))! * (Double(newCachierCheck)! / 100) * 100).rounded() / 100
+                                total = (((Double(newCachierCheck)! + tip) / Double(numberPersons + 2)) * 100).rounded() / 100
+                                differ = ((total * Double(numberPersons + 2) - tip) * 100).rounded() / 100
+                                difference = (Double(newCachierCheck)! - differ) * -1
+                                if Double(newCachierCheck)! > differ {
+                                    colorDifference = true
+                                } else {
+                                    colorDifference = false
+                                }
                             }
                         }, label: {
                             Text("Calculate")
