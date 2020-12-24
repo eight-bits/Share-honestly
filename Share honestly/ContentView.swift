@@ -49,6 +49,7 @@ struct Home:View {
     
     // show alert...
     @State private var showAlert = false
+    @State private var showMessageLimit = false
     
     
     var body: some View {
@@ -110,10 +111,12 @@ struct Home:View {
                                 .foregroundColor(.white)
                                 .padding(.top, 5)
                                 .padding(.horizontal)
+                                .padding(.bottom, 1)
                             Text("Tip = \(tip, specifier: "%.2f")")
                                 .bold()
                                 .foregroundColor(.yellow)
                                 .padding(.horizontal)
+                                .padding(.bottom, 1)
                             Text("Difference = \(difference, specifier: "%.2f")")
                                 .bold()
                                 .foregroundColor(colorDifference ? .red : .yellow)
@@ -123,20 +126,32 @@ struct Home:View {
                         Button(action: {
                             if !cashierCheck.isEmpty {
                                 let newCachierCheck = self.cashierCheck.replacingOccurrences(of: ",", with: ".")
-                                tip = ((Double(tips[selectTips]))! * (Double(newCachierCheck)! / 100) * 100).rounded() / 100
-                                total = (((Double(newCachierCheck)! + tip) / Double(numberPersons + 2)) * 100).rounded() / 100
-                                differ = ((total * Double(numberPersons + 2) - tip) * 100).rounded() / 100
-                                difference = (Double(newCachierCheck)! - differ) * -1
-                                if Double(newCachierCheck)! > differ {
-                                    colorDifference = true
+                                if Double(newCachierCheck)! <= 100000 {
+                                    tip = ((Double(tips[selectTips]))! * (Double(newCachierCheck)! / 100) * 100).rounded() / 100
+                                    total = (((Double(newCachierCheck)! + tip) / Double(numberPersons + 2)) * 100).rounded() / 100
+                                    differ = ((total * Double(numberPersons + 2) - tip) * 100).rounded() / 100
+                                    difference = (Double(newCachierCheck)! - differ)
+                                    difference.negate()
+                                    if Double(newCachierCheck)! > differ {
+                                        colorDifference = true
+                                    } else {
+                                        colorDifference = false
+                                    }
                                 } else {
-                                    colorDifference = false
+                                    self.showMessageLimit.toggle()
                                 }
                             }
                         }, label: {
                             Text("Calculate")
                                 .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
                                 .padding()
+                                .font(.system(size: 22))
+                        }
+                        )
+                        .alert(isPresented: $showMessageLimit, content: {
+                            Alert(title: Text("Share honestly"),
+                                  message: Text("Too large amount"),
+                                  dismissButton: .default(Text("Ok")))
                         })
                     }
                 }
@@ -160,8 +175,6 @@ struct Home:View {
         }
     }
 }
-
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
