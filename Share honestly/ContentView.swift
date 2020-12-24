@@ -42,6 +42,9 @@ struct Home:View {
     // all summa...
     @State private var total: Double = 0.0
     
+    // show alert...
+    @State private var showAlert = false
+    
     var body: some View {
         VStack {
             NavigationView {
@@ -111,12 +114,19 @@ struct Home:View {
                 .navigationBarTitle("Share honestly")
                 .navigationBarItems(trailing: (
                         Button(action: {
-                            print("12345")
+                            self.showAlert.toggle()
                         }, label: {
                             Image(systemName: "info.circle.fill")
                                 .foregroundColor(Color(#colorLiteral(red: 0.5058823824, green: 0.3372549117, blue: 0.06666667014, alpha: 1)))
                                 .font(.system(size: 26))
-                        })))
+                        })
+                        .alert(isPresented: $showAlert, content: {
+                            Alert(title: Text("About"),
+                                  message: Text("Chare honestly - Version 1.0.0\nXcode - Version 12.3 (12C33)\nSwift - 5.3\nFramework - SwiftUI\nCopyright © 2020 Andrey Kudryavtsev"),
+                                  dismissButton: .default(Text("Ok")))
+                                
+                        })
+                ))
             }
         }
     }
