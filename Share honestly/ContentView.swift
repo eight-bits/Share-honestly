@@ -148,6 +148,7 @@ struct Home:View {
                                     } else {
                                         colorDifference = false
                                     }
+                                    UIApplication.shared.endEditing()
                                 } else {
                                     self.showInvalidNumberFormat.toggle()
                                 }
@@ -203,5 +204,12 @@ extension String {
             }
         }
         return letterCount <= 1 ? true : false
+    }
+}
+
+// extension for keyboard to dismiss
+extension UIApplication {
+    func endEditing() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
