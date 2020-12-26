@@ -37,27 +37,31 @@ struct Home:View {
     // items array tips...
     @State private var tips = ["0", "5", "10", "15", "20", "25", "30", "35", "40",]
     
-    // selected ++++++
+    // number selected in array...
     @State private var selectTips = 0
     
-    // all summa ++++++
+    // total summa...
     @State private var total: Double = 0.0
-    // ostatok +++++++
+    
+    // summa differ...
     @State private var differ: Double = 0.0
+    
+    // tip...
     @State private var tip: Double = 0.0
+    
+    // summa difference...
     @State private var difference: Double = 0.0
+    
+    // color difference +/-
     @State private var colorDifference = false
     
     // show alert...
     @State private var showAlert = false
     
-    // show alert limit amount...
-    @State private var showMessageLimit = false
-    
     // show alert invalid number format...
     @State private var showInvalidNumberFormat = false
     
-    //function to keep text length in limits
+    //function to keep text length in limits...
     func limitText(_ upper: Int) {
         if cashierCheck.count > upper {
             cashierCheck = String(cashierCheck.prefix(upper))
@@ -165,7 +169,6 @@ struct Home:View {
                                   message: Text("Invalid number format"),
                                   dismissButton: .default(Text("Ok")))
                         })
-                        
                     }
                 }
                 .navigationBarTitle("Share honestly")
@@ -195,6 +198,8 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
+
+// extension in textFild chech double char
 extension String {
     func CharCount(input: String, char: Character) -> Bool {
         var letterCount = 0
