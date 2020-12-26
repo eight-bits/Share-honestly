@@ -18,11 +18,15 @@ struct Home:View {
     
     init() {
         
-        // color title UINavigationBar type .large...
+        // color text NavigationBar type .large...
         UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.brown]
+        // color text NavigationBar type .inline...
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.brown]
         
-        // color title UINavigationBar type .inline...
-        UINavigationBar.appearance().barTintColor = .brown
+        // color background NavigationBar type .large...
+        UINavigationBar.appearance().backgroundColor = .black
+        // color background NavigationBar type .inline...
+        UINavigationBar.appearance().barTintColor = .black
         
         // set theme
         UIApplication.shared.windows.first?.rootViewController?.overrideUserInterfaceStyle = .dark
@@ -67,6 +71,8 @@ struct Home:View {
             cashierCheck = String(cashierCheck.prefix(upper))
         }
     }
+    
+    var countStart = UserDefaults.standard.integer(forKey: "count")
     
     var body: some View {
         
@@ -171,14 +177,14 @@ struct Home:View {
                         })
                     }
                 }
-                .navigationBarTitle("Share honestly")
+                .navigationBarTitle("Share honestly", displayMode: .inline)
                 .navigationBarItems(trailing: (
                     Button(action: {
                         self.showAlert.toggle()
                     }, label: {
                         Image(systemName: "info.circle.fill")
                             .foregroundColor(Color(#colorLiteral(red: 0.5058823824, green: 0.3372549117, blue: 0.06666667014, alpha: 1)))
-                            .font(.system(size: 26))
+                            .font(.system(size: 22))
                     })
                     .alert(isPresented: $showAlert, content: {
                         Alert(title: Text("About"),
