@@ -30,6 +30,7 @@ struct Home:View {
         
         // set theme
         UIApplication.shared.windows.first?.rootViewController?.overrideUserInterfaceStyle = .dark
+        
     }
     
     // text cashier's check...
@@ -65,6 +66,9 @@ struct Home:View {
     // show alert invalid number format...
     @State private var showInvalidNumberFormat = false
     
+    // show View license...
+    @State private var showLicense = false
+    
     //function to keep text length in limits...
     func limitText(_ upper: Int) {
         if cashierCheck.count > upper {
@@ -72,10 +76,10 @@ struct Home:View {
         }
     }
     
-    var countStart = UserDefaults.standard.integer(forKey: "count")
+    @State private var countStart = UserDefaults.standard.integer(forKey: "count")
+    //var showLicence = ShowLicense()
     
     var body: some View {
-        
         VStack {
             NavigationView {
                 Form {
@@ -177,25 +181,48 @@ struct Home:View {
                         })
                     }
                 }
+                .onAppear() {
+                    if self.countStart == 0 {
+                        self.countStart += 1
+                        UserDefaults.standard.set(self.countStart, forKey: "count")
+                        self.showLicense.toggle()
+                    }
+                }
                 .navigationBarTitle("Share honestly", displayMode: .inline)
-                .navigationBarItems(trailing: (
-                    Button(action: {
-                        self.showAlert.toggle()
-                    }, label: {
-                        Image(systemName: "info.circle.fill")
-                            .foregroundColor(Color(#colorLiteral(red: 0.5058823824, green: 0.3372549117, blue: 0.06666667014, alpha: 1)))
-                            .font(.system(size: 22))
-                    })
+                .navigationBarItems(leading: (
+                                        Button(action: {
+                                            self.showLicense.toggle()
+                                        }, label: {
+                                            Image(systemName: "book.fill")
+                                                .foregroundColor(Color(#colorLiteral(red: 0.5058823824, green: 0.3372549117, blue: 0.06666667014, alpha: 1)))
+                                                .font(.system(size: 22))
+                                        }
+                                        )
+                                        .sheet(isPresented: $showLicense, content: {License()})
+                                    ),
+                                    trailing: (
+                                        Button(action: {
+                                            self.showAlert.toggle()
+                                        }, label: {
+                                            Image(systemName: "info.circle.fill")
+                                                .foregroundColor(Color(#colorLiteral(red: 0.5058823824, green: 0.3372549117, blue: 0.06666667014, alpha: 1)))
+                                                .font(.system(size: 22))
+                                        })
                     .alert(isPresented: $showAlert, content: {
                         Alert(title: Text("About"),
                               message: Text("Chare honestly - Version 1.0.0\nXcode - Version 12.3 (12C33)\nSwift - 5.3\nFramework - SwiftUI\nCopyright © 2020 Andrey Kudryavtsev"),
                               dismissButton: .default(Text("Ok")))
                         
                     })
-                ))
+                )
+                )
             }
         }
     }
+}
+
+struct ShowLicense {
+    var isShow = 0 //UserDefaults.standard.integer(forKey: "count")
 }
 
 struct ContentView_Previews: PreviewProvider {
