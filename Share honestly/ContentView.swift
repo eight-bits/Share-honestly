@@ -76,8 +76,8 @@ struct Home:View {
         }
     }
     
+    // counter start programm
     @State private var countStart = UserDefaults.standard.integer(forKey: "count")
-    //var showLicence = ShowLicense()
     
     var body: some View {
         VStack {
@@ -102,7 +102,7 @@ struct Home:View {
                                     .font(.system(size: 20))
                                 Picker("Number of persons", selection: $numberPersons) {
                                     ForEach(2..<100) {
-                                        Text("\($0) people")
+                                        Text("\($0)")
                                             .foregroundColor(.white)
                                             .padding()
                                     }
@@ -129,22 +129,38 @@ struct Home:View {
                     }
                     Section(header: Text("Total")) {
                         VStack(alignment: .leading) {
-                            Text("Total = \(total, specifier: "%.2f")")
-                                .foregroundColor(.orange)
-                                .font(.system(size: 28))
-                                .bold()
-                                .padding(.top)
-                                .padding(.horizontal)
-                            Text("Tip = \(tip, specifier: "%.2f")")
-                                .bold()
-                                .foregroundColor(.yellow)
-                                .padding(.horizontal)
-                                .padding(.top, 5)
-                            Text("Difference = \(difference, specifier: "%.2f")")
-                                .bold()
-                                .foregroundColor(colorDifference ? .red : .yellow)
-                                .padding(.horizontal)
-                                .padding(.bottom, 5)
+                            HStack {
+                                Text("Total")
+                                    .foregroundColor(.orange)
+                                    .font(.system(size: 28))
+                                    .bold()
+                                    .padding(.top)
+                                Text("\(total, specifier: "%.2f")")
+                                    .foregroundColor(.orange)
+                                    .font(.system(size: 28))
+                                    .bold()
+                                    .padding(.top)
+                            }
+                            HStack () {
+                                Text("Tip")
+                                    .bold()
+                                    .foregroundColor(.yellow)
+                                    .padding(.top, 5)
+                                Text("\(tip, specifier: "%.2f")")
+                                    .bold()
+                                    .foregroundColor(.yellow)
+                                    .padding(.top, 5)
+                            }
+                            HStack {
+                                Text("Difference")
+                                    .bold()
+                                    .foregroundColor(colorDifference ? .red : .yellow)
+                                    .padding(.bottom, 5)
+                                Text("\(difference, specifier: "%.2f")")
+                                    .bold()
+                                    .foregroundColor(colorDifference ? .red : .yellow)
+                                    .padding(.bottom, 5)
+                            }
                         }
                         Button(action: {
                             if !cashierCheck.isEmpty {
@@ -190,24 +206,24 @@ struct Home:View {
                 }
                 .navigationBarTitle("Share honestly", displayMode: .inline)
                 .navigationBarItems(leading: (
-                                        Button(action: {
-                                            self.showLicense.toggle()
-                                        }, label: {
-                                            Image(systemName: "book.fill")
-                                                .foregroundColor(Color(#colorLiteral(red: 0.5058823824, green: 0.3372549117, blue: 0.06666667014, alpha: 1)))
-                                                .font(.system(size: 22))
-                                        }
-                                        )
-                                        .sheet(isPresented: $showLicense, content: {License()})
-                                    ),
-                                    trailing: (
-                                        Button(action: {
-                                            self.showAlert.toggle()
-                                        }, label: {
-                                            Image(systemName: "info.circle.fill")
-                                                .foregroundColor(Color(#colorLiteral(red: 0.5058823824, green: 0.3372549117, blue: 0.06666667014, alpha: 1)))
-                                                .font(.system(size: 22))
-                                        })
+                    Button(action: {
+                        self.showLicense.toggle()
+                    }, label: {
+                        Image(systemName: "book.fill")
+                            .foregroundColor(Color(#colorLiteral(red: 0.5058823824, green: 0.3372549117, blue: 0.06666667014, alpha: 1)))
+                            .font(.system(size: 22))
+                    }
+                    )
+                    .sheet(isPresented: $showLicense, content: {License()})
+                ),
+                trailing: (
+                    Button(action: {
+                        self.showAlert.toggle()
+                    }, label: {
+                        Image(systemName: "info.circle.fill")
+                            .foregroundColor(Color(#colorLiteral(red: 0.5058823824, green: 0.3372549117, blue: 0.06666667014, alpha: 1)))
+                            .font(.system(size: 22))
+                    })
                     .alert(isPresented: $showAlert, content: {
                         Alert(title: Text("About"),
                               message: Text("Chare honestly - Version 1.0.0\nXcode - Version 12.3 (12C33)\nSwift - 5.3\nFramework - SwiftUI\nCopyright © 2020 Andrey Kudryavtsev"),
@@ -219,10 +235,6 @@ struct Home:View {
             }
         }
     }
-}
-
-struct ShowLicense {
-    var isShow = 0 //UserDefaults.standard.integer(forKey: "count")
 }
 
 struct ContentView_Previews: PreviewProvider {
