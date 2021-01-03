@@ -6,14 +6,14 @@
   
 */
 "Enter the amount manually" = "Введите сумму в ручную";
-"Enter total summ" = "Введите общую сумму";
+"Enter total sum" = "Введите общую сумму";
 "Number of persons" = "Количество человек";
 "people" = "чел.";
 "Tips" = "Чаевые";
 "Tip percentage" = "Процент чаевых";
 "Total" = "Всего";
-"Tip" = "Чаевые =";
-"Difference" = "Разница =";
+"Tip" = "Чаевые";
+"Difference" = "Разница";
 "Calculate" = "Рассчитать";
 "Invalid number format" = "Неверный формат числа";
 "You must understand that the application may contain errors and the author of the program does not bear any responsibility if, because of them, the calculation is not correct. By continuing to use the program, you agree to this condition. If you do not agree with this condition, remove the program from the device and do not use it." = "Вы должны понимать, что в приложении могут содержаться ошибки и автор программы не несет никакой отвественности если из - за них расчет будет не верным. Продалжая пользоваться программой вы соглашаетесь с данным условием. Если вы не согласны с данным условием удалите программу с устройства и не пользуйтесь ей.";

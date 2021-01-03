@@ -1,0 +1,21 @@
+/* 
+  Localizable.strings
+  Share honestly
+
+  Created by Andrey Kudryavtsev on 27.12.2020.
+  
+*/
+"Enter the amount manually" = "Entrez le montant manuellement";
+"Enter total sum" = "Entrez la somme totale";
+"Number of persons" = "Nombre de personnes";
+"people" = "personnes";
+"Tips" = "Conseils";
+"Tip percentage" = "Pourcentage de pourboire";
+"Total" = "Total";
+"Tip" = "Pointe";
+"Difference" = "Différence";
+"Calculate" = "Calculer";
+"Invalid number format" = "Format de nombre non valide";
+"You must understand that the application may contain errors and the author of the program does not bear any responsibility if, because of them, the calculation is not correct. By continuing to use the program, you agree to this condition. If you do not agree with this condition, remove the program from the device and do not use it." = "Vous devez comprendre que l'application peut contenir des erreurs et l'auteur du programme n'assume aucune responsabilité si, à cause d'elles, le calcul n'est pas correct. En continuant à utiliser le programme, vous acceptez cette condition. Si vous n'êtes pas d'accord avec cette condition, supprimez le programme de l'appareil et ne l'utilisez pas.";
+"Accept the agreement and continue" = "Acceptez l'accord et continuez";
+"License" = "Licence";

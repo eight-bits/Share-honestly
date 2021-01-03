@@ -88,7 +88,7 @@ struct Home:View {
                             HStack {
                                 Image(systemName: "dollarsign.circle.fill")
                                     .foregroundColor(.yellow)
-                                TextField("Enter total summ", text: $cashierCheck)
+                                TextField("Enter total sum", text: $cashierCheck)
                                     .textFieldStyle(RoundedBorderTextFieldStyle())
                                     .foregroundColor(.white)
                                     .padding()
