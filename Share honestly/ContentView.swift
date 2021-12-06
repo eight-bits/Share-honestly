@@ -226,7 +226,7 @@ struct Home:View {
                     })
                     .alert(isPresented: $showAlert, content: {
                         Alert(title: Text("About"),
-                              message: Text("Chare honestly - Version 1.0.0\nXcode - Version 12.3 (12C33)\nSwift - 5.3\nFramework - SwiftUI\nCopyright © 2020 Andrey Kudryavtsev"),
+                              message: Text("Share honestly - Version 2.0.0\nXcode - Version 13.1 (13A1030d)\nSwift - 5.5.1\nFramework - SwiftUI\nCopyright © 2021 Andrey Kudryavtsev"),
                               dismissButton: .default(Text("Ok")))
                         
                     })
